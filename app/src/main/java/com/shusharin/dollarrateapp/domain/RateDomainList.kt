@@ -5,6 +5,7 @@ import com.shusharin.dollarrateapp.data.ErrorType
 import com.shusharin.dollarrateapp.data.RateData
 import com.shusharin.dollarrateapp.data.RateDataToDomainMapper
 import com.shusharin.dollarrateapp.ui.RateUiList
+import retrofit2.HttpException
 import java.net.UnknownHostException
 
 sealed class RateDomainList : Abstract.Object<RateUiList, RateDomainListToUiMapper> {
