@@ -3,6 +3,9 @@ package com.shusharin.dollarrateapp.ui
 import com.shusharin.dollarrateapp.core.Abstract
 
 sealed class RateUi : Abstract.Object<Unit, RateUi.StringMapper> {
+    override fun map(mapper: StringMapper) = Unit
+
+    object Progress : RateUi()
 
     class Base(
         private val value: String,
@@ -17,8 +20,9 @@ sealed class RateUi : Abstract.Object<Unit, RateUi.StringMapper> {
         override fun map(mapper: StringMapper) = mapper.setupError(message)
     }
 
+
     interface StringMapper : Abstract.Mapper {
-        fun setupText(value: String, data: String)
-        fun setupError(message: String)
+        fun setupText(value: String, data: String) = Unit
+        fun setupError(message: String) = Unit
     }
 }
