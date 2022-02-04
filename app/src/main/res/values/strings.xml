@@ -4,4 +4,5 @@
     <string name="service_unavailable_message">service unavailable</string>
     <string name="something_went_wrong">something went wrong</string>
     <string name="try_again">try again</string>
+    <string name="tv_dollar_rate">Динамика курса доллара за последний месяц</string>
 </resources>
