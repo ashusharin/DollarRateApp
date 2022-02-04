@@ -1,7 +1,8 @@
 package com.shusharin.dollarrateapp.core
 
 import android.app.Application
-import com.shusharin.dollarrateapp.data.RateDataListToDomainMapper
+import com.shusharin.dollarrateapp.core.data.util.DateManager
+import com.shusharin.dollarrateapp.core.data.util.DollarNotificationManager
 import com.shusharin.dollarrateapp.data.RateRepository
 import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
 import com.shusharin.dollarrateapp.data.net.RateCloudListMapper
@@ -23,6 +24,8 @@ class RateApp : Application() {
     }
 
     lateinit var mainViewModel: MainViewModel
+
+    private val base = ResourceProvider.Base(this)
 
     override fun onCreate() {
         super.onCreate()
@@ -52,11 +55,13 @@ class RateApp : Application() {
             personRepository,
             BaseRateDataListToDomainMapper(BaseRateDataToDomainMapper())
         )
+        val resourceProvider = ResourceProvider.Base(this)
+        val notificationManager = DollarNotificationManager.Base(this, resourceProvider)
         val communication = RateUiCommunication.Base()
         mainViewModel = MainViewModel(
             personsInteractor,
             communication,
-            BaseRateDomainListToUiMapper(ResourceProvider.Base(this),
+            BaseRateDomainListToUiMapper(resourceProvider,
                 BaseRateDomainToUiMapper()),
 
             )
