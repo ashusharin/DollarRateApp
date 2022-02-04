@@ -43,10 +43,11 @@ class RateApp : Application() {
         val cloudDataSource = RateCloudDataSource.Base(service)
         val rateCloudToDataMapper = RateCloudToDataMapper.Base()
         val rateCloudMapper = RateCloudListMapper.Base(rateCloudToDataMapper)
+        val calendar = DateManager.Base()
         val personRepository = RateRepository.Base(
             cloudDataSource,
-            rateCloudMapper
-        )
+            rateCloudMapper,
+            calendar)
         val personsInteractor = RateInteractor.Base(
             personRepository,
             BaseRateDataListToDomainMapper(BaseRateDataToDomainMapper())
