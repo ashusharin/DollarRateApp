@@ -3,6 +3,7 @@ package com.shusharin.dollarrateapp.core
 import android.app.Application
 import com.shusharin.dollarrateapp.core.data.util.DateManager
 import com.shusharin.dollarrateapp.core.data.util.DollarNotificationManager
+import com.shusharin.dollarrateapp.core.data.util.DollarScheduler
 import com.shusharin.dollarrateapp.data.RateRepository
 import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
 import com.shusharin.dollarrateapp.data.net.RateCloudListMapper
@@ -57,6 +58,8 @@ class RateApp : Application() {
         )
         val resourceProvider = ResourceProvider.Base(this)
         val notificationManager = DollarNotificationManager.Base(this, resourceProvider)
+        val a = DollarScheduler(this)
+        a.schedule()
         val communication = RateUiCommunication.Base()
         mainViewModel = MainViewModel(
             personsInteractor,
