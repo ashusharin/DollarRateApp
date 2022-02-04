@@ -5,4 +5,6 @@
     <string name="something_went_wrong">something went wrong</string>
     <string name="try_again">try again</string>
     <string name="tv_dollar_rate">Динамика курса доллара за последний месяц</string>
+    <string name="channel_name">Dollar rate</string>
+    <string name="channel_description">Today dollar rate is up</string>
 </resources>

@@ -1,13 +1,17 @@
 package com.shusharin.dollarrateapp
 
+import android.app.job.JobScheduler
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.shusharin.dollarrateapp.core.DateManager
+import com.shusharin.dollarrateapp.core.data.util.DollarNotificationManager
 import com.shusharin.dollarrateapp.core.RateApp
+import com.shusharin.dollarrateapp.core.data.util.DollarJobService
+import com.shusharin.dollarrateapp.core.data.util.DollarScheduler
 import com.shusharin.dollarrateapp.ui.MainViewModel
 import com.shusharin.dollarrateapp.ui.RateAdapter
+import com.shusharin.dollarrateapp.ui.ResourceProvider
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: MainViewModel
@@ -22,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.fetchRates()
             }
         })
-        val a = DateManager.Base().getRange()
+
         setupRecyclerView()
 
         viewModel.observe(this, {

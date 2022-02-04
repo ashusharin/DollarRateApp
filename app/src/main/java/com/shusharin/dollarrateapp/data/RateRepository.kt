@@ -1,6 +1,6 @@
 package com.shusharin.dollarrateapp.data
 
-import com.shusharin.dollarrateapp.core.DateManager
+import com.shusharin.dollarrateapp.core.data.util.DateManager
 import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
 import com.shusharin.dollarrateapp.data.net.RateCloudListMapper
 

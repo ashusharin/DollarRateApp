@@ -1,10 +1,11 @@
-package com.shusharin.dollarrateapp.core
+package com.shusharin.dollarrateapp.core.data.util
 
 import java.text.SimpleDateFormat
 import java.util.*
 
 interface DateManager {
     fun getRange(): Pair<String, String>
+    fun getToday(): String
 
     class Base() : DateManager {
         override fun getRange(): Pair<String, String> {
@@ -17,7 +18,13 @@ interface DateManager {
             val dateCurrentText = dateFormat.format(currentDate.time)
             val pastMonthDateText = dateFormat.format(pastMonthDate.time)
 
-            return Pair(pastMonthDateText,dateCurrentText)
+            return Pair(pastMonthDateText, dateCurrentText)
+        }
+
+        override fun getToday(): String {
+            val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val currentDate = Calendar.getInstance().time
+            return dateFormat.format(currentDate.time)
         }
     }
 
