@@ -20,7 +20,7 @@ class MainViewModel(
     fun fetchRates() {
         communication.map(listOf(RateUi.Progress))
         viewModelScope.launch(Dispatchers.IO) {
-            val resultDomain = songsInteractor.findListSong()
+            val resultDomain = songsInteractor.fetchRates()
             val resultUi = resultDomain.map(mapper)
             withContext(Dispatchers.Main) {
                 resultUi.map(communication)

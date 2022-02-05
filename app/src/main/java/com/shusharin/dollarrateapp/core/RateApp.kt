@@ -26,8 +26,12 @@ class RateApp : Application() {
 
     lateinit var mainViewModel: MainViewModel
 
-    private val base = ResourceProvider.Base(this)
-
+    private val resourceProvider = ResourceProvider.Base(this)
+    lateinit var rateRepository: RateRepository
+    lateinit var rateInteractor: RateInteractor
+    lateinit var notificationManager: DollarNotificationManager
+    lateinit var calendar: DateManager
+    lateinit var cloudDataSource: RateCloudDataSource
     override fun onCreate() {
         super.onCreate()
         val client = OkHttpClient.Builder()
@@ -44,25 +48,24 @@ class RateApp : Application() {
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build()
         val service = retrofit.create(RateService::class.java)
-        val cloudDataSource = RateCloudDataSource.Base(service)
+        cloudDataSource = RateCloudDataSource.Base(service)
         val rateCloudToDataMapper = RateCloudToDataMapper.Base()
         val rateCloudMapper = RateCloudListMapper.Base(rateCloudToDataMapper)
-        val calendar = DateManager.Base()
-        val personRepository = RateRepository.Base(
+        calendar = DateManager.Base()
+        rateRepository = RateRepository.Base(
             cloudDataSource,
             rateCloudMapper,
             calendar)
-        val personsInteractor = RateInteractor.Base(
-            personRepository,
-            BaseRateDataListToDomainMapper(BaseRateDataToDomainMapper())
-        )
+        rateInteractor = RateInteractor.Base(
+            rateRepository,
+            BaseRateDataListToDomainMapper(BaseRateDataToDomainMapper()), calendar)
         val resourceProvider = ResourceProvider.Base(this)
-        val notificationManager = DollarNotificationManager.Base(this, resourceProvider)
+        notificationManager = DollarNotificationManager.Base(this, resourceProvider)
         val a = DollarScheduler(this)
         a.schedule()
         val communication = RateUiCommunication.Base()
         mainViewModel = MainViewModel(
-            personsInteractor,
+            rateInteractor,
             communication,
             BaseRateDomainListToUiMapper(resourceProvider,
                 BaseRateDomainToUiMapper()),

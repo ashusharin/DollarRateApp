@@ -2,31 +2,34 @@ package com.shusharin.dollarrateapp.core.data.util
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import android.content.Context
 import android.util.Log
-import com.shusharin.dollarrateapp.ui.ResourceProvider
+import com.shusharin.dollarrateapp.core.RateApp
+import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
+import com.shusharin.dollarrateapp.domain.RateInteractor
 import kotlinx.coroutines.*
 
 class DollarJobService(
 ) : JobService() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var calendar: DateManager
+    private lateinit var notificationManager: DollarNotificationManager
+    private lateinit var interactor: RateInteractor
+    private lateinit var cloudDataSource: RateCloudDataSource
 
     override fun onCreate() {
         super.onCreate()
+        calendar = (applicationContext as RateApp).calendar
+        notificationManager = (applicationContext as RateApp).notificationManager
+        interactor = (applicationContext as RateApp).rateInteractor
+        cloudDataSource = (applicationContext as RateApp).cloudDataSource
     }
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        val resourceProvider = ResourceProvider.Base(this)
-        val notificationManager = DollarNotificationManager.Base(this, resourceProvider)
 
-       coroutineScope.launch {
-           for (i in 0 until 3) {
-               delay(1000)
-               Log.d("сервис","Timer $i")
-
-           }
-           notificationManager.showNotification()
+        coroutineScope.launch {
+            val rate = interactor.fetchLastRate()
+            if (rate.isOver("75.0")) notificationManager.showNotification()
             jobFinished(params, true)
         }
         return true
@@ -37,7 +40,7 @@ class DollarJobService(
     }
 
     override fun onDestroy() {
-        Log.d("сервис","onDestroy")
+        Log.d("сервис", "onDestroy")
         super.onDestroy()
         coroutineScope.cancel()
     }

@@ -23,8 +23,15 @@ class DollarScheduler(private val context: Context) {
         jobScheduler.schedule(jobInfo)
     }
 
+    fun cancel() {
+        val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.cancel(JOB_ID)
+
+    }
+
     companion object {
-        //        const val ONE_DAY_INTERVAL = 24 * 60 * 60 * 1000L
-        const val ONE_DAY_INTERVAL = 1 * 1000L
+//        const val ONE_DAY_INTERVAL = 24 * 60 * 60 * 1000L
+        const val ONE_DAY_INTERVAL =  15 * 60 * 1000L
+
     }
 }
