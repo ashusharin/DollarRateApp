@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shusharin.dollarrateapp.data.sharePreference.SharePref
 import com.shusharin.dollarrateapp.domain.RateDomainListToUiMapper
 import com.shusharin.dollarrateapp.domain.RateInteractor
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ class MainViewModel(
     private val songsInteractor: RateInteractor,
     private val communication: RateUiCommunication,
     private val mapper: RateDomainListToUiMapper,
+    private val sharePref: SharePref,
 ) : ViewModel(
 ) {
 
@@ -31,4 +33,11 @@ class MainViewModel(
     fun observe(owner: LifecycleOwner, observer: Observer<List<RateUi>>) {
         communication.observe(owner, observer)
     }
+
+    fun saveDollarRate(rate: String) {
+        sharePref.save(rate)
+    }
+
+    fun readDollarRate(): String = sharePref.readOldRate()
+
 }

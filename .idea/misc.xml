@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/fail_fullscreen.xml" value="0.1" />
+        <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/main_menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/progress_fullscreen.xml" value="0.1" />
+        <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/rate_dialog.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/layout/rate_layout.xml" value="0.1" />
+        <entry key="..\:/Users/shush/AndroidStudioProjects/DollarRateApp/app/src/main/res/menu/menu.xml" value="0.13020833333333334" />
       </map>
     </option>
   </component>
