@@ -4,12 +4,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.shusharin.dollarrateapp.core.Abstract
+import javax.inject.Inject
 
 interface RateUiCommunication : Abstract.Mapper {
     fun map(rates: List<RateUi>)
     fun observe(owner: LifecycleOwner, observer: Observer<List<RateUi>>)
 
-    class Base : RateUiCommunication {
+    class Base @Inject constructor() : RateUiCommunication {
         private val listLiveData = MutableLiveData<List<RateUi>>()
         override fun map(rates: List<RateUi>) {
             listLiveData.value = rates

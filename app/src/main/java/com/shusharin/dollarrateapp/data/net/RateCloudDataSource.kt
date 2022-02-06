@@ -1,9 +1,11 @@
 package com.shusharin.dollarrateapp.data.net
 
+import javax.inject.Inject
+
 interface RateCloudDataSource {
     suspend fun fetchRate(today: String, monthAgo: String): List<RateCloud>
 
-    class Base(private val service: RateService) : RateCloudDataSource {
+    class Base @Inject constructor(private val service: RateService) : RateCloudDataSource {
         override suspend fun fetchRate(today: String, monthAgo: String): List<RateCloud> {
             val rates = mutableListOf<RateCloud>()
             val response = service.fetchDollarRate(today, monthAgo)

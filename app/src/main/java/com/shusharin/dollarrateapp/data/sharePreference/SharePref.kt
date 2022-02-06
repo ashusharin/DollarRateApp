@@ -1,12 +1,13 @@
 package com.shusharin.dollarrateapp.data.sharePreference
 
 import android.content.Context
+import javax.inject.Inject
 
 interface SharePref {
     fun save(rate: String)
     fun readOldRate(): String
 
-    class Base(context: Context) : SharePref {
+    class Base @Inject constructor(context: Context) : SharePref {
 
         private val sharedPreferences =
             context.getSharedPreferences(DOLLAR_RATE_CONTROL, Context.MODE_PRIVATE)

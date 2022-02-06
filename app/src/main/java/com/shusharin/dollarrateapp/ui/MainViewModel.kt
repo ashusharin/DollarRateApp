@@ -10,8 +10,9 @@ import com.shusharin.dollarrateapp.domain.RateInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainViewModel(
+class MainViewModel @Inject constructor(
     private val songsInteractor: RateInteractor,
     private val communication: RateUiCommunication,
     private val mapper: RateDomainListToUiMapper,

@@ -1,7 +1,8 @@
-package com.shusharin.dollarrateapp.core.data.util
+package com.shusharin.dollarrateapp.core.data
 
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 interface DateManager {
     fun getRange(): Pair<String, String>
@@ -9,13 +10,13 @@ interface DateManager {
     fun getTenDay(): Pair<String, String>
 
 
-    class Base() : DateManager {
+    class Base @Inject constructor() : DateManager {
         override fun getRange(): Pair<String, String> {
             val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
             val currentDate = Calendar.getInstance().time
             val pastMonthDate = Calendar.getInstance()
-            pastMonthDate.add(Calendar.MONTH, -1)// FIXME: 04.02.2022 названия
+            pastMonthDate.add(Calendar.MONTH, -1)
 
             val dateCurrentText = dateFormat.format(currentDate.time)
             val pastMonthDateText = dateFormat.format(pastMonthDate.time)
@@ -34,7 +35,7 @@ interface DateManager {
 
             val currentDate = Calendar.getInstance().time
             val pastTenDate = Calendar.getInstance()
-            pastTenDate.add(Calendar.DAY_OF_MONTH, -10)// FIXME: 04.02.2022 названия
+            pastTenDate.add(Calendar.DAY_OF_MONTH, -10)
 
             val dateCurrentText = dateFormat.format(currentDate.time)
             val pastMonthDateText = dateFormat.format(pastTenDate.time)

@@ -12,4 +12,6 @@
     <string name="plus">+</string>
     <string name="create_new_value">Задать новую цену</string>
     <string name="set">Задать</string>
+    <string name="notification_title">Доллар вырос</string>
+    <string name="notification_text">Бегом продавать!</string>
 </resources>

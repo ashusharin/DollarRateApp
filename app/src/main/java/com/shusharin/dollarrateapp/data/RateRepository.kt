@@ -1,15 +1,15 @@
 package com.shusharin.dollarrateapp.data
 
-import android.util.Log
-import com.shusharin.dollarrateapp.core.data.util.DateManager
+import com.shusharin.dollarrateapp.core.data.DateManager
 import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
 import com.shusharin.dollarrateapp.data.net.RateCloudListMapper
+import javax.inject.Inject
 
 interface RateRepository {
 
     suspend fun fetchRates(): RateDataList
     suspend fun fetchLastRate(): List<RateData>
-    class Base(
+    class Base @Inject constructor(
         private val cloudDataSource: RateCloudDataSource,
         private val rateCloudMapper: RateCloudListMapper,
         private val calendar: DateManager,

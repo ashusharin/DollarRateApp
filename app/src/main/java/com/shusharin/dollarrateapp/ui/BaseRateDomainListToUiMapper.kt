@@ -4,8 +4,9 @@ import com.shusharin.dollarrateapp.data.ErrorType
 import com.shusharin.dollarrateapp.domain.RateDomain
 import com.shusharin.dollarrateapp.domain.RateDomainListToUiMapper
 import com.shusharin.dollarrateapp.domain.RateDomainToUiMapper
+import javax.inject.Inject
 
-class BaseRateDomainListToUiMapper(
+class BaseRateDomainListToUiMapper @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val ratesMapper: RateDomainToUiMapper,
 ) : RateDomainListToUiMapper {

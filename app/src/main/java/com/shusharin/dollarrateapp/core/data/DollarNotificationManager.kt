@@ -1,4 +1,4 @@
-package com.shusharin.dollarrateapp.core.data.util
+package com.shusharin.dollarrateapp.core.data
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,12 +11,16 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.shusharin.dollarrateapp.MainActivity
 import com.shusharin.dollarrateapp.R
 import com.shusharin.dollarrateapp.ui.ResourceProvider
+import javax.inject.Inject
 
 interface DollarNotificationManager {
     fun createChannel()
     fun showNotification()
 
-    class Base(private val context: Context, private val resourceProvider: ResourceProvider) :
+    class Base @Inject constructor(
+        private val context: Context,
+        private val resourceProvider: ResourceProvider,
+    ) :
         DollarNotificationManager {
         override fun createChannel() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -40,8 +44,8 @@ interface DollarNotificationManager {
             val builder =
                 NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setContentTitle("Доллар вырос")
-                    .setContentText("Бегом продавать!")
+                    .setContentTitle(resourceProvider.getString(R.string.notification_title))
+                    .setContentText(resourceProvider.getString(R.string.notification_text))
                     .setPriority(NotificationCompat.PRIORITY_MAX)
             builder.setContentIntent(pendingIntent).setAutoCancel(true)
             val notificationManager =

@@ -1,16 +1,16 @@
 package com.shusharin.dollarrateapp.domain
 
-import com.shusharin.dollarrateapp.core.data.util.DateManager
+import com.shusharin.dollarrateapp.core.data.DateManager
 import com.shusharin.dollarrateapp.data.RateData
 import com.shusharin.dollarrateapp.data.RateDataListToDomainMapper
 import com.shusharin.dollarrateapp.data.RateRepository
+import javax.inject.Inject
 
 interface RateInteractor {
     suspend fun fetchRates(): RateDomainList
     suspend fun fetchLastRate(): RateData
 
-
-    class Base(
+    class Base @Inject constructor(
         private val songRepository: RateRepository,
         private val mapper: RateDataListToDomainMapper,
         private val calendar: DateManager,
