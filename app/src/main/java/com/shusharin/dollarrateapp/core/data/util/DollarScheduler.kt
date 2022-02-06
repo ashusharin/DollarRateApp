@@ -16,7 +16,7 @@ class DollarScheduler(private val context: Context) {
 
         val jobInfo = JobInfo.Builder(JOB_ID, componentName)
             .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-//            .setPeriodic(ONE_DAY_INTERVAL)
+            .setPeriodic(ONE_DAY_INTERVAL)
             .build()
 
         val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler

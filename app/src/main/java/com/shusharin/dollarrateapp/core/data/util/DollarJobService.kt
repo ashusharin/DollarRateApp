@@ -5,6 +5,7 @@ import android.app.job.JobService
 import android.util.Log
 import com.shusharin.dollarrateapp.core.RateApp
 import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
+import com.shusharin.dollarrateapp.data.sharePreference.SharePref
 import com.shusharin.dollarrateapp.domain.RateInteractor
 import kotlinx.coroutines.*
 
@@ -16,6 +17,7 @@ class DollarJobService(
     private lateinit var notificationManager: DollarNotificationManager
     private lateinit var interactor: RateInteractor
     private lateinit var cloudDataSource: RateCloudDataSource
+    private lateinit var sharePref: SharePref
 
     override fun onCreate() {
         super.onCreate()
@@ -23,13 +25,15 @@ class DollarJobService(
         notificationManager = (applicationContext as RateApp).notificationManager
         interactor = (applicationContext as RateApp).rateInteractor
         cloudDataSource = (applicationContext as RateApp).cloudDataSource
+        sharePref = (applicationContext as RateApp).sharePref
     }
 
     override fun onStartJob(params: JobParameters?): Boolean {
 
         coroutineScope.launch {
-            val rate = interactor.fetchLastRate()
-            if (rate.isOver("75.0")) notificationManager.showNotification()
+            val newRate = interactor.fetchLastRate()
+            val oldRate = sharePref.readOldRate()
+            if (newRate.isOver(oldRate)) notificationManager.showNotification()
             jobFinished(params, true)
         }
         return true

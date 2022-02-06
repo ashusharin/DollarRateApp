@@ -9,6 +9,7 @@ import com.shusharin.dollarrateapp.data.net.RateCloudDataSource
 import com.shusharin.dollarrateapp.data.net.RateCloudListMapper
 import com.shusharin.dollarrateapp.data.net.RateCloudToDataMapper
 import com.shusharin.dollarrateapp.data.net.RateService
+import com.shusharin.dollarrateapp.data.sharePreference.SharePref
 import com.shusharin.dollarrateapp.domain.BaseRateDataListToDomainMapper
 import com.shusharin.dollarrateapp.domain.BaseRateDataToDomainMapper
 import com.shusharin.dollarrateapp.domain.RateInteractor
@@ -32,6 +33,7 @@ class RateApp : Application() {
     lateinit var notificationManager: DollarNotificationManager
     lateinit var calendar: DateManager
     lateinit var cloudDataSource: RateCloudDataSource
+    lateinit var sharePref: SharePref
     override fun onCreate() {
         super.onCreate()
         val client = OkHttpClient.Builder()
@@ -64,12 +66,13 @@ class RateApp : Application() {
         val a = DollarScheduler(this)
         a.schedule()
         val communication = RateUiCommunication.Base()
+        sharePref = SharePref.Base(this)
         mainViewModel = MainViewModel(
             rateInteractor,
             communication,
             BaseRateDomainListToUiMapper(resourceProvider,
                 BaseRateDomainToUiMapper()),
-
+            sharePref
             )
     }
 }
