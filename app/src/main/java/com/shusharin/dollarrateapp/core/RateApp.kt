@@ -17,15 +17,6 @@ class RateApp : Application() {
         const val BASE_URL = "http://cbr.ru/scripts/"
     }
 
-    lateinit var mainViewModel: MainViewModel
-
-    private val resourceProvider = ResourceProvider.Base(this)
-    lateinit var rateRepository: RateRepository
-    lateinit var rateInteractor: RateInteractor
-    lateinit var notificationManager: DollarNotificationManager
-    lateinit var calendar: DateManager
-    lateinit var cloudDataSource: RateCloudDataSource
-    lateinit var sharePref: SharePref
 
     val appComponent by lazy {
         DaggerAppComponent.factory().create(this)

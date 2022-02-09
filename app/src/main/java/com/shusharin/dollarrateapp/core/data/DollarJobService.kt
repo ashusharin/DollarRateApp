@@ -18,10 +18,11 @@ class DollarJobService(
     }
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     @Inject
-    lateinit var calendar: DateManager
-    lateinit var notificationManager: DollarNotificationManager
     lateinit var interactor: RateInteractor
+    @Inject
     lateinit var sharePref: SharePref
+    @Inject
+    lateinit var notificationManager: DollarNotificationManager
 
     override fun onCreate() {
         appComponent.inject(this)

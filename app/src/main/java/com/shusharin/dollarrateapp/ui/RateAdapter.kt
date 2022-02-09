@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.shusharin.dollarrateapp.R
 
 class RateAdapter(private val retry: Retry) : RecyclerView.Adapter<RateAdapter.RateViewHolder>() {
@@ -40,11 +42,16 @@ class RateAdapter(private val retry: Retry) : RecyclerView.Adapter<RateAdapter.R
         is RateUi.Progress -> PROGRESS
     }
 
-    abstract class RateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    abstract class RateViewHolder(view: View) : RecyclerView.ViewHolder(view){
         open fun bind(rate: RateUi) {}
-        class Base(view: View) : RateViewHolder(view) {
+        class Base(view: View) : RateViewHolder(view),View.OnClickListener {
             private val valueRate = itemView.findViewById<TextView>(R.id.value_rate)
             private val dateRate = itemView.findViewById<TextView>(R.id.date_rate)
+
+            init {
+                itemView.setOnClickListener(this)
+            }
+
             override fun bind(rate: RateUi) {
                 rate.map(object : RateUi.StringMapper {
                     override fun setupText(
@@ -55,6 +62,10 @@ class RateAdapter(private val retry: Retry) : RecyclerView.Adapter<RateAdapter.R
                         dateRate.text = data
                     }
                 })
+            }
+
+            override fun onClick(p0: View?) {
+                Snackbar.make(itemView, "доллар ${valueRate.text}!", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -69,6 +80,7 @@ class RateAdapter(private val retry: Retry) : RecyclerView.Adapter<RateAdapter.R
                 })
                 button.setOnClickListener { retry.tryAgain() }
             }
+
         }
 
         class Progress(view: View) : RateViewHolder(view)
